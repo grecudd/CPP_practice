@@ -42,12 +42,22 @@ int main(int argc, char *argv[])
 	// Get the first argument
 	std::string argumentAsString = argv[1];
 	const char* argumentAsCharArray = argumentAsString.c_str();
+	
+	// Verify if the number has characters
+	for (int i = 0; argumentAsCharArray[i] != '\0'; i++) {
+		if (argumentAsCharArray[i] < '0' || argumentAsCharArray[i] > '9') {
+			printf("NAN");
+			return 0;
+		}
+	}
 
 	//number = argv[1]; // No
 	//should use atoi?
 	// or std::stoi?
 
-	std::cout << argumentAsString << std::endl; // i think this should be removed
+	number = std::atoi(argumentAsCharArray);
+
+	//std::cout << argumentAsString << std::endl; // i think this should be removed
 
 	// --------------- stop
 
