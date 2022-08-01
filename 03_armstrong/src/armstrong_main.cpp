@@ -1,8 +1,20 @@
 #include <iostream>
-
+#include <string>
 bool isArmstrongNumber(int number)
 {
 	// TODO: implement some functionality to see if this number is an armstrong number
+	int temp = number;
+	int sum = 0;
+
+	while (temp)
+	{
+		int digit = temp % 10;
+		sum += digit * digit * digit;
+		temp /= 10;
+	}
+
+	if (sum == number)
+		return true;
 
 	return false;
 }
@@ -50,7 +62,15 @@ int main(int argc, char *argv[])
 	int readNumber = 0;
 	// Get the first argument
 	std::string argumentAsString = argv[1];
-	
+
+	for(char ch : argumentAsString)
+		if (!isdigit(ch))
+		{
+			std::cout << "Undefined output\n";
+			return 1;
+		}
+
+	readNumber = stoi(argumentAsString);
 	// TODO: read number / cast to integer
 
 	printIsArmstrong(readNumber);
