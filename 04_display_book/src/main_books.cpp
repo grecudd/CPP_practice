@@ -14,7 +14,7 @@ struct Author
 	{
 		strncpy(name, nameToSet, MAX_NAME_LEN);
 		// overwrite the last character
-		name[MAX_NAME_LEN] = 0;
+		name[MAX_NAME_LEN] = '\0';
 	}
 
 	void print()
@@ -26,7 +26,7 @@ struct Author
 struct Book
 {
 	int id;
-	char title[50];
+	char title[MAX_TITLE_LEN + 1];
 
 	int numAuthors;
 	Author authors[5];
@@ -34,10 +34,13 @@ struct Book
 	void addAuthor(Author author)
 	{
 		// TODO: add an author to the container authors array.
-		
+		if (this->numAuthors == 5)
+		{
+			return;
+		}
 		for (int i = 0; i < this->numAuthors; i++)
 		{
-			if (this->authors[i].name == author.name)
+			if (!strcmp(this->authors[i].name, author.name))
 				return;
 		}
 		this->authors[this->numAuthors] = author;
@@ -59,7 +62,8 @@ struct Book
 
 void setBookName(Book& book, std::string name)
 {
-	strncpy(book.title, name.c_str(), MAX_TITLE_LEN);
+	strncpy_s(book.title, name.c_str(), MAX_TITLE_LEN);
+	book.title[MAX_TITLE_LEN] = '\0';
 }
 
 int main()
