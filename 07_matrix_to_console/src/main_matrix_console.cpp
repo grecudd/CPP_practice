@@ -13,16 +13,24 @@ private:
 
 	// TODO: store the data
 	// hints: you can use std::string, std::vectors + string, char**, vector<vector<char>>, etc
+	std::vector<std::vector<char>> matrix;
 public:
-	Matrix(size_t numColumnsX, size_t numLinesY)
+	Matrix(size_t numColumnsX, size_t numLinesY) : column_count(numColumnsX), line_count(numLinesY)
 		// TODO: add functionality
 	{
+		matrix.resize(line_count);
+		for (int line = 0; line < line_count; line++)
+		{
+			matrix[line].resize(column_count);
+		}
 		// TODO: add functionality
 	}
 
 	// Set an entire line
 	void setLine(size_t line_number, const std::string& data)
 	{
+		std::vector<char> newMatrixLine(data.begin(), data.end());
+		matrix[line_number] = newMatrixLine;
 	}
 
 	//OPTIONAL
@@ -31,6 +39,32 @@ public:
 	//	// TODO: add functionality
 	//	return 0;
 	//}
+
+	char getCellXY(size_t x, size_t y, char cell_content)
+	{
+		if (y >= line_count)
+		{
+			return -1;
+		}
+
+		if (x < 0)
+		{
+			return -1;
+		}
+
+		if (x >= column_count)
+		{
+			return -1;
+		}
+
+		if (y < 0)
+		{
+			return -1;
+		}
+
+		cell_content = matrix[y][x];
+		return 0;
+	}
 
 	/**
 		Sets the cell content for a specific cell identified by its coordinates (X and Y)
@@ -55,12 +89,41 @@ public:
 	void setCellXY(size_t x, size_t y, char cell_content)
 	{
 		// TODO: add functionality
+		if (y >= line_count)
+		{
+			return;
+		}
+
+		if (x < 0)
+		{
+			return;
+		}
+
+		if (x >= column_count)
+		{
+			return;
+		}
+
+		if (y < 0)
+		{
+			return;
+		}
+		matrix[y][x] = cell_content;
 	}
 
 	void print()
 	{
 		// print all lines and columns
 		// TODO: add functionality
+
+		for (int line = 0; line < line_count; line++)
+		{
+			for (int column = 0; column < column_count; column++)
+			{
+				std::cout << matrix[line][column];
+			}
+			std::cout << "\n";
+		}
 	}
 };
 
@@ -122,7 +185,7 @@ X-----X----X-----XX-
 -----------------X--
 ---O---------------X
 ------------------X-
------------------X--
+-----------------X--	
 */
 
 	// This should silently fail (not trigger an error): cell Y=11 invalid due to limited height.
